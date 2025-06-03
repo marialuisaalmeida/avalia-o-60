@@ -1,0 +1,17 @@
+produtos = [
+    [1, "1984", "George Orwell", 39.90, 10],
+    [2, "Dom Casmurro", "Machado de Assis", 29.50, 5],
+    [3, "O Pequeno Príncipe", "Antoine de Saint-Exupéry", 25.00, 7],
+    [4, "Harry Potter e a Pedra Filosofal", "J.K. Rowling", 49.90, 3],
+    [5, "Sapiens", "Yuval Noah Harari", 45.00, 4]
+]
+
+def listar_produtos():
+    print("Lista de Produtos - Livraria Marketplace\n")
+    print(f"{'ID':<4} {'Nome':<35} {'Autor':<25} {'Preço (R$)':<12} {'Estoque':<8}")
+    print("-"*90)
+    for p in produtos:
+        print(f"{p[0]:<4} {p[1]:<35} {p[2]:<25} {p[3]:<12.2f} {p[4]:<8}")
+
+listar_produtos()
+
