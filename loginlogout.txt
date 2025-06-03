@@ -1,0 +1,21 @@
+pilha = []
+
+def login():
+    nome = input("Digite seu nome para login: ")
+    senha = input("Digite sua senha: ")
+    pilha.append((nome, senha)) 
+    print("Login realizado")
+
+def logout():
+    if pilha:
+        nome, senha = pilha.pop()
+        print(f"Logout realizado para o usuário: {nome}")
+    else:
+        print("Nenhum usuário logado.")
+
+comando = input("Digite 'login' ou 'logout': ")
+
+if comando == "login":
+    login()
+elif comando == "logout":
+    logout()
