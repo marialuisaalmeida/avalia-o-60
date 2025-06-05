@@ -1,0 +1,77 @@
+from collections import deque
+
+class Carrinho:
+    def __init__(self):
+        self.itens = deque() 
+    
+    def adicionar(self, livro, quantidade):
+        item = livro.copy()
+        item['quantidade'] = quantidade
+        self.itens.append(item)
+        print(f"Adicionado: {item['titulo']} - {item['tipo']} - Qtde: {item['quantidade']} - R$ {item['preco']:.2f}")
+
+    def remover(self):
+        if self.itens:
+            removido = self.itens.popleft()
+            print(f"Removido: {removido['titulo']} - {removido['tipo']} - Qtde: {removido['quantidade']}")
+            return removido
+        else:
+            print("Carrinho vazio!")
+            return None
+    
+    def mostrar(self):
+        if self.itens:
+            print("\nItens no carrinho:")
+            for livro in self.itens:
+                print(f"- {livro['titulo']} ({livro['tipo']}) - Qtde: {livro['quantidade']} - R$ {livro['preco']:.2f} cada")
+                print(f"  Autor: {livro['autor']}")
+            total = sum(l['preco'] * l['quantidade'] for l in self.itens)
+            print(f"\nTotal a pagar: R$ {total:.2f}\n")
+        else:
+            print("Carrinho vazio.")
+
+livros_disponiveis = [
+    {
+        'titulo': 'A cinco passos de você',
+        'tipo': 'Romance',
+        'preco': 39.90,
+        'autor': 'Rachael Lippincott'
+    },
+    {
+        'titulo': 'E não sobrou nenhum',
+        'tipo': 'Suspense',
+        'preco': 45.00,
+        'autor': 'Agatha Christie'
+    }
+]
+
+carrinho = Carrinho()
+
+while True:
+    print("\nLivros disponíveis:")
+    for i, livro in enumerate(livros_disponiveis, 1):
+        print(f"{i}. {livro['titulo']} ({livro['tipo']}) - R$ {livro['preco']:.2f}")
+    
+    nome_livro = input("\nInforme o título do livro (ou 'sair' para finalizar): ").strip()
+    
+    if nome_livro.lower() == 'sair':
+        break
+
+    livro_encontrado = next((livro for livro in livros_disponiveis if livro['titulo'].lower() == nome_livro.lower()), None)
+    
+    if livro_encontrado:
+        try:
+            quant = int(input("Quantos itens quer? "))
+            carrinho.adicionar(livro_encontrado, quant)
+        except ValueError:
+            print("Quantidade inválida.")
+    else:
+        print("Livro não encontrado.")
+
+print("\nFinalizando...\n")
+carrinho.mostrar()
+
+remover = input("Deseja remover o primeiro item do carrinho? (s/n): ").strip().lower()
+if remover == 's':
+    carrinho.remover()
+    carrinho.mostrar()
